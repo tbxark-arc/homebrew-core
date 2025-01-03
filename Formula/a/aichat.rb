@@ -1,18 +1,18 @@
 class Aichat < Formula
   desc "All-in-one AI-Powered CLI Chat & Copilot"
   homepage "https://github.com/sigoden/aichat"
-  url "https://github.com/sigoden/aichat/archive/refs/tags/v0.24.0.tar.gz"
-  sha256 "a7ec96bb2e7fd84f19447d252949ee9baf8326ee37c06f3149a4b6a189c4e7f8"
+  url "https://github.com/sigoden/aichat/archive/refs/tags/v0.26.0.tar.gz"
+  sha256 "1743534a68acb9fdf4fee11cd2b38cc5282c85debf89a4052b61a09dcaf51185"
   license any_of: ["Apache-2.0", "MIT"]
   head "https://github.com/sigoden/aichat.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8b10f5b2dae4a983f109038865a94957d8c84ab2da6a294ddd3310743c99c85e"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "7c37875b086b5f92ac40022b24379a507419e6d5453ae0af64406dcfe7cb66cb"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "d9f5f3f71179b36292e45c30bf28805b1524a00a0310057499ea24a5f63b52eb"
-    sha256 cellar: :any_skip_relocation, sonoma:        "cf8ebb762f05d0c7bae1ddb56581158173f56971ee56fa59538451d878a8b14c"
-    sha256 cellar: :any_skip_relocation, ventura:       "3ecba704b8a0d3b7a120d803704735194f80ecd5309ed87e7b62921c5845bd8b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "441027de781e7a495f8077e26b3e24c87634e47b6c56c56f7c197f3ba180709d"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "75ffbe1df040a3d2e42a54277a149b7df6af3373751c41c5d005d72fd914ed08"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "840e7b978728e0e0c124ed58ab394268d8a6eb10eb8a9ce3321a93bf8206cb9b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "223161ee04f14f241e747e7ba9a84e755f37fb19c81db601960b9051c053faf6"
+    sha256 cellar: :any_skip_relocation, sonoma:        "d6ad2ef6b370708c75f42877afa6588fd467e29bd91bb899c2c8e6f6cb855d02"
+    sha256 cellar: :any_skip_relocation, ventura:       "ba2ef442789befe5d2369d94aefd8a8bc871bd709a11fd98f9afcce8448d2653"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8b5f85275c516c268ad5cc0c9a3dacaa2b635091afcdf2c05cd78c7c0d0d3e9a"
   end
 
   depends_on "rust" => :build

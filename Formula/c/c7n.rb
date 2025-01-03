@@ -6,6 +6,7 @@ class C7n < Formula
   url "https://github.com/cloud-custodian/cloud-custodian/archive/refs/tags/0.9.42.0.tar.gz"
   sha256 "88ca170ffbb01fd6af9dbefe84768285258ae6471d7d9a6ef59800ea63a66961"
   license "Apache-2.0"
+  revision 1
 
   livecheck do
     url :stable
@@ -13,12 +14,13 @@ class C7n < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "36b52f15f8891948dad4c94077117c3dfed4263a11c538d1a4498ccc6835b1be"
-    sha256 cellar: :any,                 arm64_sonoma:  "149e54fa268963ce64450fec59d2cdc5fece9a67b0951a37aa0d15665f0782ae"
-    sha256 cellar: :any,                 arm64_ventura: "0986bd98095f318cf24afe0cee8d1ad4563cef56a396d6042c83a0339458ae3f"
-    sha256 cellar: :any,                 sonoma:        "d5fc3a10742b044a4ff44316980aac5b87ff0378806f380ec0c989901568fe51"
-    sha256 cellar: :any,                 ventura:       "97c6d0f33b905808f9b3fee7bac1e40137156bfd0630d403bb0357cccfcb09bd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "209a1710513f95aa2b871b99c796bba42ed0dce93dd2f71bffbcbdbee001b28e"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia: "bf7beb334ef4701fbcf3151fed55f87e26a30783d2860a2436ded659002c0598"
+    sha256 cellar: :any,                 arm64_sonoma:  "5f28d607db86f50e09cdedc38800c3d60311b66f39350f607e26ba66c5c6b545"
+    sha256 cellar: :any,                 arm64_ventura: "03afcb4435af5dfcbd42a7af3248ef9ce0be10503306526fd853561a51972e80"
+    sha256 cellar: :any,                 sonoma:        "5fbbacecee3ac9be7f736937efe374656beb7bdb4eb1ba391d59fa1a0c3f9c14"
+    sha256 cellar: :any,                 ventura:       "4c09b7e33a71ef49d6374e52af07f696ad40e84540feab9aaec0f5c70949deab"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cb90a238b4691adbe7ed8acd9a861f1e9f148dc414abb85590514b14a8049e07"
   end
 
   depends_on "rust" => :build # for rpds-py
@@ -26,8 +28,8 @@ class C7n < Formula
   depends_on "python@3.13"
 
   resource "argcomplete" do
-    url "https://files.pythonhosted.org/packages/5f/39/27605e133e7f4bb0c8e48c9a6b87101515e3446003e0442761f6a02ac35e/argcomplete-3.5.1.tar.gz"
-    sha256 "eb1ee355aa2557bd3d0145de7b06b2a45b0ce461e1e7813f5d066039ab4177b4"
+    url "https://files.pythonhosted.org/packages/7f/03/581b1c29d88fffaa08abbced2e628c34dd92d32f1adaed7e42fc416938b0/argcomplete-3.5.2.tar.gz"
+    sha256 "23146ed7ac4403b70bd6026402468942ceba34a6732255b9edf5b7354f68a6bb"
   end
 
   resource "attrs" do
@@ -117,13 +119,16 @@ class C7n < Formula
 
   def install
     virtualenv_install_with_resources
+
+    generate_completions_from_executable(libexec/"bin/register-python-argcomplete", "custodian",
+                                         base_name: "custodian", shell_parameter_format: :arg)
   end
 
   test do
     # trim last decimal point version to match semver returned from version command
     assert_match version.major_minor_patch.to_s, shell_output("#{bin}/custodian version")
 
-    (testpath/"good-policy.yml").write <<~EOF
+    (testpath/"good-policy.yml").write <<~YAML
       policies:
       - name: ec2-auto-tag-user
         resource: ec2
@@ -141,13 +146,13 @@ class C7n < Formula
           - type: auto-tag-user
             tag: CreatorName
             principal_id_tag: CreatorId
-    EOF
+    YAML
 
     output = shell_output("#{bin}/custodian validate --verbose #{testpath}/good-policy.yml 2>&1")
     assert_match "valid", output
 
     # has invalid "action" key instead of "actions"
-    (testpath/"bad-policy.yml").write <<~EOF
+    (testpath/"bad-policy.yml").write <<~YAML
       policies:
       - name: ec2-auto-tag-user
         resource: ec2
@@ -157,7 +162,7 @@ class C7n < Formula
           - type: auto-tag-user
             tag: CreatorName
             principal_id_tag: CreatorId
-    EOF
+    YAML
 
     output = shell_output("#{bin}/custodian validate --verbose #{testpath}/bad-policy.yml 2>&1", 1)
     assert_match "invalid", output

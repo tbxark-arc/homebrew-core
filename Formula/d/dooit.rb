@@ -3,18 +3,19 @@ class Dooit < Formula
 
   desc "TUI todo manager"
   homepage "https://github.com/kraanzu/dooit"
-  url "https://files.pythonhosted.org/packages/c6/c6/71f799c0c0a1d25ee27ef8e400e4ae1eee7fc8a9c4117d6d315d32151610/dooit-3.0.4.tar.gz"
-  sha256 "0462f68909d74bec9977aeb9567f0da137d843e6b72a567772f66218a39a1ced"
+  url "https://files.pythonhosted.org/packages/ab/0f/3d3649b0d8e2634e5a5231d08386d0c339510b3f17afe9277c588863006c/dooit-3.1.0.tar.gz"
+  sha256 "ceb0faa4d5a93976a3895505b66c11a80a16c616d6a7d20bbfa9e6c2dbe7c05a"
   license "MIT"
   head "https://github.com/kraanzu/dooit.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "a02bfb48a92a3419b43a5ba5a540f9227610a5aea486f64247f10c4263505e7d"
-    sha256 cellar: :any,                 arm64_sonoma:  "4e01e2ec937977ea343d49a4bc90380225dfa55f220eb857fdc95539d2027283"
-    sha256 cellar: :any,                 arm64_ventura: "26020920e18963309900908a272cb354152ede1369b158c503faf5f57cb05734"
-    sha256 cellar: :any,                 sonoma:        "57df5fd52ed72edff599d0fb605b848f7ba94fda22e5efb7e70314ad9dfd7e1b"
-    sha256 cellar: :any,                 ventura:       "176d24f78db08e253939336a65ecbdce8f0236e168982587aad98ba5b6432f7f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "22f37d8ff0c1a3d379dc17ee93855322a8f488f304617b94568b6aec1a7e4d21"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia: "28e26bfd0d1b64a2c5e6c8f2530f8226e5293a15831f923879d588a68b8e8e25"
+    sha256 cellar: :any,                 arm64_sonoma:  "3063a42abfe79996679469529c459da907354d9450a141695a7e412bb8308e33"
+    sha256 cellar: :any,                 arm64_ventura: "0e8872e9a7b67579b3693d9a5874084801991ab019c17b1b2683315c7052bd2e"
+    sha256 cellar: :any,                 sonoma:        "3417fc5d17fa21ad45adaacd71eaf9c370352d41a81f9cc2bc77023524629421"
+    sha256 cellar: :any,                 ventura:       "5aab34101df08674d9b15a59fe0896f8f43d0c895ffb1a41980c62368ec57e9d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d74e67a6601a1be24dae34f987a97d076c551d9f64827451f23beef5d42401e2"
   end
 
   depends_on "cmake" => :build
@@ -87,8 +88,8 @@ class Dooit < Formula
   end
 
   resource "textual" do
-    url "https://files.pythonhosted.org/packages/56/c6/435723343db6a65ed92950d1e20ded920c4c22e6e785ea0e369abd4ac1c7/textual-0.86.1.tar.gz"
-    sha256 "a6e68de5383415f222f26b4049c2a92ed204071fdfebe3d729f8dd373ca5f519"
+    url "https://files.pythonhosted.org/packages/61/6a/e643a0d32dc964f831172ff84d4d1b0e3c6675954e74f81c201713c58d69/textual-0.87.1.tar.gz"
+    sha256 "daf4e248ba3d890831ff2617099535eb835863a2e3609c8ce00af0f6d55ed123"
   end
 
   resource "typing-extensions" do
@@ -108,6 +109,8 @@ class Dooit < Formula
 
   def install
     virtualenv_install_with_resources
+
+    generate_completions_from_executable(bin/"dooit", shells: [:fish, :zsh], shell_parameter_format: :click)
   end
 
   test do

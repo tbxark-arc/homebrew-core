@@ -1,18 +1,18 @@
 class Nomino < Formula
   desc "Batch rename utility"
   homepage "https://github.com/yaa110/nomino"
-  url "https://github.com/yaa110/nomino/archive/refs/tags/1.3.6.tar.gz"
-  sha256 "12e14d951b3fa99d17b9a0de97b7f9d9003f67ef83eb6b993623da066bc54dd4"
+  url "https://github.com/yaa110/nomino/archive/refs/tags/1.4.0.tar.gz"
+  sha256 "4b0e1debd76995b60ad020db97431ffcc01a64d4fc0040702ef0dea7ea368536"
   license any_of: ["Apache-2.0", "MIT"]
   head "https://github.com/yaa110/nomino.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "63d5b037e962f888090f398505a403fdf1a330823b5cab10b47438460179a0f4"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8d8b845046c631d50b4a4119dd9a59421338bd1eca5f6c56b344cc8287970e8c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "84440c2ac0220f0e8c971a0e0de6280b47d87791f2b5fb79151de71e4a73b007"
-    sha256 cellar: :any_skip_relocation, sonoma:        "d9570c41100c0b24ddfb08cb703d3015c526cd7b939178d18463b63ecca98992"
-    sha256 cellar: :any_skip_relocation, ventura:       "9ece1146d93c172619b4fb5ba9ec005e1df3cc5dd9635082a9f7c4d33f45ed38"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9bbd2a5ddc584d9090937df634f0aa5cefc6d5bac8b1e8d50988ce8ab82b6912"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b5729d142d56baead1fa25ada956193ad29449ae618464e904380e30bc1cd776"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a2ad5b47b0c6fb96487e9f7bdb46ae4ae931b38315b6b4ed9be142f445671fa8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "41099632e58a15ac05cfa9d4d78e015e312c0385a3a52a971c88a2729737f02c"
+    sha256 cellar: :any_skip_relocation, sonoma:        "6d103aa491a92f0929ddbb63a05d7d4ad554bd433d0130edefebfa8462eb6006"
+    sha256 cellar: :any_skip_relocation, ventura:       "1c60c8e8ffdea1c93551caeda58aa544c9b41ae7f38096fa865aa405c91ef81c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7b3c3a600f8ad5defe56c2361397053a45c2f0adc04d398cd7a593d36e7dc9ad"
   end
 
   depends_on "rust" => :build

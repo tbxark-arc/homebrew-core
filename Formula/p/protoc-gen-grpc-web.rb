@@ -4,7 +4,7 @@ class ProtocGenGrpcWeb < Formula
   url "https://github.com/grpc/grpc-web/archive/refs/tags/1.5.0.tar.gz"
   sha256 "d3043633f1c284288e98e44c802860ca7203c7376b89572b5f5a9e376c2392d5"
   license "Apache-2.0"
-  revision 4
+  revision 7
 
   livecheck do
     url :stable
@@ -12,12 +12,12 @@ class ProtocGenGrpcWeb < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "a4f85c1ccce6031b8feaf732dd20abd5a206bfce8c675516b9de2af7a7576ce4"
-    sha256 cellar: :any,                 arm64_sonoma:  "b37092b2149c0b051eae27d61fb1e84453d6ee4f6df33b32ebf280e6ff0a5e15"
-    sha256 cellar: :any,                 arm64_ventura: "78fc9b91c8f9dc7f982f8d79bd0ad73fd7c5317f711370796d2eb1dc93a50b0c"
-    sha256 cellar: :any,                 sonoma:        "35bf03d35f48fbe38dc3382ef0ffb7b99eb73f485839457e7d9780881d5b1a47"
-    sha256 cellar: :any,                 ventura:       "e5ca115e787006f8dcd8e656c4be77036881b08e239eddaa10d1ef47ab41a797"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bab988382a520ff8b0d05dff610be8275f3c40083c953347f092b1d46829a16d"
+    sha256 cellar: :any,                 arm64_sequoia: "3670803b7440f787cfd8e1c01014652cf0ef0602b2e99574258c8859a6bd5fff"
+    sha256 cellar: :any,                 arm64_sonoma:  "449543f4896c759dc03d0985f7d337a35e261fa84a2c25532859d0902b6e6c80"
+    sha256 cellar: :any,                 arm64_ventura: "ce99c4c227bc4e5dc545925251965363ef56a887f072f9f9d050da49c007d14f"
+    sha256 cellar: :any,                 sonoma:        "9406d60487a89094a26a8b37c46a3f96e6bb1c3a771f7ca55435a8a10f2f0ad4"
+    sha256 cellar: :any,                 ventura:       "ab2f9cb5144feaf51e6342d732d53e52b943eb9c078665f38d056edfbd20c98f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d882a81854a145b4fb643bbfb307c6233540195a6149f1aca53a344fdafad4f1"
   end
 
   depends_on "cmake" => :build
@@ -44,7 +44,7 @@ class ProtocGenGrpcWeb < Formula
 
   test do
     # First use the plugin to generate the files.
-    testdata = <<~EOS
+    testdata = <<~PROTO
       syntax = "proto3";
       package test;
       message TestCase {
@@ -59,7 +59,7 @@ class ProtocGenGrpcWeb < Formula
       service TestService {
         rpc RunTest(Test) returns (TestResult);
       }
-    EOS
+    PROTO
     (testpath/"test.proto").write testdata
     system "protoc", "test.proto", "--plugin=#{bin}/protoc-gen-grpc-web",
                      "--js_out=import_style=commonjs:.",

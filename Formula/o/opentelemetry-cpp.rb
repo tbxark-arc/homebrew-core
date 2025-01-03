@@ -4,15 +4,16 @@ class OpentelemetryCpp < Formula
   url "https://github.com/open-telemetry/opentelemetry-cpp/archive/refs/tags/v1.18.0.tar.gz"
   sha256 "b149109d5983cf8290d614654a878899a68b0c8902b64c934d06f47cd50ffe2e"
   license "Apache-2.0"
+  revision 4
   head "https://github.com/open-telemetry/opentelemetry-cpp.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "1b3cf2b030cbeeddd822def87c850a69866458c0c3291a923a1d567de715701f"
-    sha256 cellar: :any,                 arm64_sonoma:  "a682b0ba9ff9940e809fec12964779f0cb10bc014ce1662a992084ef282516f0"
-    sha256 cellar: :any,                 arm64_ventura: "34a1fb60def58e0c65fe15f8ef81c3025b6b728699535c2f7b672817687fddba"
-    sha256 cellar: :any,                 sonoma:        "852cf3a9ce1add3a6f61a4f730c48d8a10713ada672a82804bb9090520473fa9"
-    sha256 cellar: :any,                 ventura:       "60a2e5113b18799b6b160140efff051ea6ea7732615dd53ec7b1b5636fe0cf21"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "91da9ca3189d34b12df5b3e3e466b80c7a0a308466af08b0e8a87dc267b8fc9b"
+    sha256 cellar: :any,                 arm64_sequoia: "4fb00cef9637187d69babfa0a270c094a4ac83cb19dc9f99a464a78b8fbdd71e"
+    sha256 cellar: :any,                 arm64_sonoma:  "924521228973b436e918722d06ce291c046c45f85f131329422e54a3d46b5511"
+    sha256 cellar: :any,                 arm64_ventura: "77bf289f66b96a5d88b2f7036514238a21ea526124c7a46922bff31a32d1aee4"
+    sha256 cellar: :any,                 sonoma:        "883c5594885acc83d5d0ef9107abb17c2049382171a7055e3d629ea55003c96c"
+    sha256 cellar: :any,                 ventura:       "0b0fa8437e78420181fa830ae543e4d25a79d86d88f443d543807ba7755852c4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5dd0d680e0b2c0df3d6b706921d8cf8105676078c67802cda9e86b1ebd74753e"
   end
 
   depends_on "cmake" => :build
@@ -48,7 +49,7 @@ class OpentelemetryCpp < Formula
   end
 
   test do
-    (testpath/"test.cc").write <<~EOS
+    (testpath/"test.cc").write <<~CPP
       #include "opentelemetry/sdk/trace/simple_processor.h"
       #include "opentelemetry/sdk/trace/tracer_provider.h"
       #include "opentelemetry/trace/provider.h"
@@ -74,7 +75,7 @@ class OpentelemetryCpp < Formula
         auto tracer = provider->GetTracer("foo_library", "1.0.0");
         auto scoped_span = trace_api::Scope(tracer->StartSpan("test"));
       }
-    EOS
+    CPP
     system ENV.cxx, "test.cc", "-std=c++17",
                     "-DHAVE_ABSEIL",
                     "-I#{include}", "-L#{lib}",

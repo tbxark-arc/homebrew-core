@@ -1,17 +1,17 @@
 class Rollup < Formula
   desc "Next-generation ES module bundler"
   homepage "https://rollupjs.org/"
-  url "https://registry.npmjs.org/rollup/-/rollup-4.27.4.tgz"
-  sha256 "3fffae23a91d75bed4ec61ae6880c1f82170bc5794ef51e0ae282aeeb4171afb"
+  url "https://registry.npmjs.org/rollup/-/rollup-4.29.1.tgz"
+  sha256 "653b9922b4d9a4872ad0c6e607e8f17fac4a1a8e7dccba882a4f976a28585f94"
   license all_of: ["ISC", "MIT"]
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "8b5b87ed327141c6367e089595c5383a0f5f9393ba19c1fc45d7a3b8c34fbe46"
-    sha256 cellar: :any,                 arm64_sonoma:  "8b5b87ed327141c6367e089595c5383a0f5f9393ba19c1fc45d7a3b8c34fbe46"
-    sha256 cellar: :any,                 arm64_ventura: "8b5b87ed327141c6367e089595c5383a0f5f9393ba19c1fc45d7a3b8c34fbe46"
-    sha256 cellar: :any,                 sonoma:        "7c199a6da89d437f6fea6dc4644da19fe87ef776c2a5eabe7bbc77ebaf25e9db"
-    sha256 cellar: :any,                 ventura:       "7c199a6da89d437f6fea6dc4644da19fe87ef776c2a5eabe7bbc77ebaf25e9db"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8952bc95afc57c3191cfebef9786eb0eb77fa7cca87ea99749f629cafb914681"
+    sha256 cellar: :any,                 arm64_sequoia: "ae9c4043ffcb3bbc40b211d6d2fc643585245a3a8ebab8b8a75aff698db6d8f7"
+    sha256 cellar: :any,                 arm64_sonoma:  "ae9c4043ffcb3bbc40b211d6d2fc643585245a3a8ebab8b8a75aff698db6d8f7"
+    sha256 cellar: :any,                 arm64_ventura: "ae9c4043ffcb3bbc40b211d6d2fc643585245a3a8ebab8b8a75aff698db6d8f7"
+    sha256 cellar: :any,                 sonoma:        "ccefd869f741a96a61736d9278cd651921907b2aa0873370ee1105ef71293f8a"
+    sha256 cellar: :any,                 ventura:       "ccefd869f741a96a61736d9278cd651921907b2aa0873370ee1105ef71293f8a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "356d327507f286abc0be4df5e008edc3ebb426e96d9eeb0f9ceb2d45c3cc79de"
   end
 
   depends_on "node"
@@ -19,8 +19,6 @@ class Rollup < Formula
   def install
     system "npm", "install", *std_npm_args
     bin.install_symlink Dir["#{libexec}/bin/*"]
-
-    deuniversalize_machos
   end
 
   test do

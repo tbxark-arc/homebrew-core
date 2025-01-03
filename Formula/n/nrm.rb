@@ -1,17 +1,17 @@
 class Nrm < Formula
   desc "NPM registry manager, fast switch between different registries"
   homepage "https://github.com/Pana/nrm"
-  url "https://registry.npmjs.org/nrm/-/nrm-1.4.0.tgz"
-  sha256 "b741a633d8d2d5e7ea7f8dd1d9709999926c2c8f5e80a94b8225ccb1a446a4e7"
+  url "https://registry.npmjs.org/nrm/-/nrm-2.0.1.tgz"
+  sha256 "64f2462cb18a097a82c7520e9f84bf10159b1d5af85c20e2b760268993af1866"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "59b4f5f3dc63191e35344d61dec81d4bf134f4f338a48efae5979d6a2215e8fe"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "59b4f5f3dc63191e35344d61dec81d4bf134f4f338a48efae5979d6a2215e8fe"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "59b4f5f3dc63191e35344d61dec81d4bf134f4f338a48efae5979d6a2215e8fe"
-    sha256 cellar: :any_skip_relocation, sonoma:        "edb0d1ea6786ae796bbd9e7b3c4e76f6209e64627f9a9c5ded2ff8ea5279dce0"
-    sha256 cellar: :any_skip_relocation, ventura:       "edb0d1ea6786ae796bbd9e7b3c4e76f6209e64627f9a9c5ded2ff8ea5279dce0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "59b4f5f3dc63191e35344d61dec81d4bf134f4f338a48efae5979d6a2215e8fe"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e8ef94c49faddff846db68abb006e2c3973688b0f2b9aab235b933156dae66be"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e8ef94c49faddff846db68abb006e2c3973688b0f2b9aab235b933156dae66be"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "e8ef94c49faddff846db68abb006e2c3973688b0f2b9aab235b933156dae66be"
+    sha256 cellar: :any_skip_relocation, sonoma:        "5cad57eed54947a284788f5ea7b977b8e3086c04707a384e689bb0e4f4925735"
+    sha256 cellar: :any_skip_relocation, ventura:       "5cad57eed54947a284788f5ea7b977b8e3086c04707a384e689bb0e4f4925735"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e8ef94c49faddff846db68abb006e2c3973688b0f2b9aab235b933156dae66be"
   end
 
   depends_on "node"

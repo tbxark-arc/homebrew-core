@@ -1,21 +1,23 @@
 class Television < Formula
   desc "General purpose fuzzy finder TUI"
   homepage "https://github.com/alexpasmantier/television"
-  url "https://github.com/alexpasmantier/television/archive/refs/tags/0.5.3.tar.gz"
-  sha256 "2010564e2afcf6874f410faab6c235fe99943c35a944acbfe7fb9d9a3680d406"
+  url "https://github.com/alexpasmantier/television/archive/refs/tags/0.8.6.tar.gz"
+  sha256 "ff76862f8fdd5473337ef783e74c377b8bf65eba7e4a437832793a4442b310b4"
   license "MIT"
   head "https://github.com/alexpasmantier/television.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d1ad2bc6f2683f9e9b23f392ca662db2a78eb970736615de18dd984096beba76"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a0cb553564fc701584986460011f3652642ba6a66566ffa4555bfb7f42194d41"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "3996fc393dd33005407d8548732ca4f1d13548e1e68917a32f840dd34cf85831"
-    sha256 cellar: :any_skip_relocation, sonoma:        "f8f34f7635c566b8096ca8b4cc14fccddd3ec59fb77db2cdd3a46573a60a5bcf"
-    sha256 cellar: :any_skip_relocation, ventura:       "a59a0837fd1ce2714b8e5161d71ebf7e94e452b5cfc67d071da7d41d9d092c28"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7239aaa77835ca43a1a523cd96b3c2acd449bdc76367b07b55b2e1dd0abc792c"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "350554fdd98129bbb8ca4cd3302afa193571123e71f838fd78165c19ea621bb1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a5d1d9902effd631f3f447b37a3573a1886f628852a020e4f70fd8021ad37d16"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "3d18636bd2df627837c7c4f7b3fd70ac3da8e1141a00788b7cf3fdc95093b83b"
+    sha256 cellar: :any_skip_relocation, sonoma:        "d7fd4262e68cc847ba9a2bcf9547eb1e8ee887a25ae8c5bdb70375393e22cf9b"
+    sha256 cellar: :any_skip_relocation, ventura:       "065e25d8083d0a5760b78525d2ab92b649d6800f3f6dbb58b3bbeda0826bf3b8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "69dae24aea3ae3a57f63e702da26ae82e8f37c361a66a109edc416a86fe9687c"
   end
 
   depends_on "rust" => :build
+
+  conflicts_with "tidy-viewer", because: "both install `tv` binaries"
 
   def install
     system "cargo", "install", *std_cargo_args
@@ -24,16 +26,7 @@ class Television < Formula
   test do
     assert_match version.to_s, shell_output("#{bin}/tv -V")
 
-    return if OS.linux? && ENV["HOMEBREW_GITHUB_ACTIONS"]
-
-    begin
-      output_log = testpath/"output.log"
-      pid = spawn bin/"tv", [:out, :err] => output_log.to_s
-      sleep 2
-      assert_match "Channel", output_log.read
-    ensure
-      Process.kill("TERM", pid)
-      Process.wait(pid)
-    end
+    output = shell_output("#{bin}/tv list-channels")
+    assert_match "Builtin channels", output
   end
 end

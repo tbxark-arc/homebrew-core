@@ -1,17 +1,17 @@
 class Atmos < Formula
   desc "Universal Tool for DevOps and Cloud Automation"
   homepage "https://github.com/cloudposse/atmos"
-  url "https://github.com/cloudposse/atmos/archive/refs/tags/v1.110.0.tar.gz"
-  sha256 "96160c364107de273a9bddda84345a4264604852eb040861fbe117ef140fcddd"
+  url "https://github.com/cloudposse/atmos/archive/refs/tags/v1.133.0.tar.gz"
+  sha256 "ab20fbd7028f483b9889f13fa2e527deeff473561f27f05d29a62978dce8db84"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "cf6d90f306b19ecc8ca3f1bbfdb5d366d8bccbd098ad87c5fd7b34528f275526"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "cf6d90f306b19ecc8ca3f1bbfdb5d366d8bccbd098ad87c5fd7b34528f275526"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "cf6d90f306b19ecc8ca3f1bbfdb5d366d8bccbd098ad87c5fd7b34528f275526"
-    sha256 cellar: :any_skip_relocation, sonoma:        "99f0835f679723d4cce570ee55fe4bb19cbc2a320e5abf0aa83c4334f4c68c62"
-    sha256 cellar: :any_skip_relocation, ventura:       "99f0835f679723d4cce570ee55fe4bb19cbc2a320e5abf0aa83c4334f4c68c62"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fd811685e0bfb62f42ec5718230c3d0fe8f322f998310295be1df8dd726b8daa"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6bcbbca6308fae2ee3e3f2b2a55314f60b900a2014aa53e7e2155d4570bd5f1c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6bcbbca6308fae2ee3e3f2b2a55314f60b900a2014aa53e7e2155d4570bd5f1c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "6bcbbca6308fae2ee3e3f2b2a55314f60b900a2014aa53e7e2155d4570bd5f1c"
+    sha256 cellar: :any_skip_relocation, sonoma:        "b3790b8815381f9de1a21c1ec88039174d3044cf27857f40e6cca5f6e0d4b631"
+    sha256 cellar: :any_skip_relocation, ventura:       "b3790b8815381f9de1a21c1ec88039174d3044cf27857f40e6cca5f6e0d4b631"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "caa0bc1f4fdc63be0d5be1093fd4e791cf140403541a5e41c13e02531ba805a4"
   end
 
   depends_on "go" => :build
@@ -26,7 +26,7 @@ class Atmos < Formula
 
   test do
     # create basic atmos.yaml
-    (testpath/"atmos.yaml").write <<~EOT
+    (testpath/"atmos.yaml").write <<~YAML
       components:
         terraform:
           base_path: "./components/terraform"
@@ -50,12 +50,12 @@ class Atmos < Formula
       logs:
         verbose: false
         colors: true
-    EOT
+    YAML
 
     # create scaffold
     mkdir_p testpath/"stacks"
     mkdir_p testpath/"components/terraform/top-level-component1"
-    (testpath/"stacks/tenant1-ue2-dev.yaml").write <<~EOT
+    (testpath/"stacks/tenant1-ue2-dev.yaml").write <<~YAML
       terraform:
         backend_type: s3 # s3, remote, vault, static, etc.
         backend:
@@ -79,10 +79,10 @@ class Atmos < Formula
       components:
         terraform:
           top-level-component1: {}
-    EOT
+    YAML
 
     # create expected file
-    (testpath/"backend.tf.json").write <<~EOT
+    (testpath/"backend.tf.json").write <<~JSON
       {
         "terraform": {
           "backend": {
@@ -99,7 +99,7 @@ class Atmos < Formula
           }
         }
       }
-    EOT
+    JSON
 
     system bin/"atmos", "terraform", "generate", "backend", "top-level-component1", "--stack", "tenant1-ue2-dev"
     actual_json = JSON.parse(File.read(testpath/"components/terraform/top-level-component1/backend.tf.json"))

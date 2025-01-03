@@ -6,6 +6,14 @@ class GuileGnutls < Formula
   license "LGPL-2.1-or-later"
   head "https://gitlab.com/gnutls/guile.git", branch: "master"
 
+  livecheck do
+    url "https://gitlab.com/api/v4/projects/40217954/releases"
+    regex(/^(?:gnutls[._-])?v?(\d+(?:[._]\d+)+)$/i)
+    strategy :json do |json, regex|
+      json.map { |item| item["tag_name"]&.[](regex, 1)&.tr("_", ".") }
+    end
+  end
+
   bottle do
     sha256 arm64_sequoia: "774fbd9464a92152b3506f67c9e5b2f7349575e2031293e50132017b7a3e98bb"
     sha256 arm64_sonoma:  "a50a21859c4523e1a26aa0e9b566d69b8351da2a31b8f01999b407551b2cc4d1"
@@ -48,10 +56,10 @@ class GuileGnutls < Formula
 
   test do
     gnutls = testpath/"gnutls.scm"
-    gnutls.write <<~EOS
+    gnutls.write <<~SCHEME
       (use-modules (gnutls))
       (gnutls-version)
-    EOS
+    SCHEME
 
     ENV["GUILE_AUTO_COMPILE"] = "0"
     ENV["GUILE_LOAD_PATH"] = HOMEBREW_PREFIX/"share/guile/site/3.0"

@@ -3,26 +3,27 @@ class Djlint < Formula
 
   desc "Lint & Format HTML Templates"
   homepage "https://djlint.com"
-  url "https://files.pythonhosted.org/packages/de/74/9173e0a91e705976c639eba1a39ce44b2b2ca1694e01c5ed8e397886d554/djlint-1.36.2.tar.gz"
-  sha256 "00d1a79de3c43b50e46a0ce6f279535b88bbf203d3f50ada92f56740fca4f590"
+  url "https://files.pythonhosted.org/packages/74/89/ecf5be9f5c59a0c53bcaa29671742c5e269cc7d0e2622e3f65f41df251bf/djlint-1.36.4.tar.gz"
+  sha256 "17254f218b46fe5a714b224c85074c099bcb74e3b2e1f15c2ddc2cf415a408a1"
   license "GPL-3.0-or-later"
   head "https://github.com/djlint/djLint.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "f786943aacd4b105a8ed2c4af1ea098c951f6bdfc5fc7088aa154e988c3bc392"
-    sha256 cellar: :any,                 arm64_sonoma:  "6445ca51ed86197e72bb1dbbfb952b9f068b3273bc6908e384e9369d3c758c15"
-    sha256 cellar: :any,                 arm64_ventura: "27975159027d70fa412454c572f46b62d6124ee6ea49de075e2199cdc618bbfc"
-    sha256 cellar: :any,                 sonoma:        "096d34dbd6e447ac5fde0ed82c131b26436606a93b48b6bb7b6c4e1bc20dfda9"
-    sha256 cellar: :any,                 ventura:       "e7bb1a79ef85804559e246cf445e60f06b854c435d17d54d68eeeec457d0bb6b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f90f40c17e6bcb2a89f126500ba12ca36acaa024caca2390937c8d2e904689cc"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia: "ffffd50d9a981e616541d88a685b44ddd5fdb425873563681e3c0611775f48f7"
+    sha256 cellar: :any,                 arm64_sonoma:  "15f38fb5cc8c6d57101be9f42ddef52a9e8c82b23874dff59b2051c282656e11"
+    sha256 cellar: :any,                 arm64_ventura: "25d8dd0b2238eef47a3f7d9cde2ff99c5bac124bdae44855aba1ef11fd4f977b"
+    sha256 cellar: :any,                 sonoma:        "b6d24985a8a4d539ff7b2ce6f121eda24a96691ef42b5785714cd0394e9c7d9e"
+    sha256 cellar: :any,                 ventura:       "2f351016b97bf06731b52dfca66ae25fd7b2d8a95442bf70e0c011789dd63105"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fa3b3445307399671cdda0fb78276dc88e33823b28c4db26a27ded1f8ff9e4e9"
   end
 
   depends_on "libyaml"
   depends_on "python@3.13"
 
   resource "click" do
-    url "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz"
-    sha256 "ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"
+    url "https://files.pythonhosted.org/packages/b9/2e/0090cbf739cee7d23781ad4b89a9894a41538e4fcf4c31dcdd705b78eb8b/click-8.1.8.tar.gz"
+    sha256 "ed53c9d8990d83c2a27deae68e4ee337473f6330c040a31d4225c9574d16096a"
   end
 
   resource "colorama" do
@@ -36,8 +37,8 @@ class Djlint < Formula
   end
 
   resource "editorconfig" do
-    url "https://files.pythonhosted.org/packages/3d/85/7b5c2fac7fdc37d959fab714b13b9acb75884490dcc0e8b1dc5e64105084/EditorConfig-0.12.4.tar.gz"
-    sha256 "24857fa1793917dd9ccf0c7810a07e05404ce9b823521c7dce22a4fb5d125f80"
+    url "https://files.pythonhosted.org/packages/b4/29/785595a0d8b30ab8d2486559cfba1d46487b8dcbd99f74960b6b4cca92a4/editorconfig-0.17.0.tar.gz"
+    sha256 "8739052279699840065d3a9f5c125d7d5a98daeefe53b0e5274261d77cb49aa2"
   end
 
   resource "jsbeautifier" do
@@ -66,8 +67,8 @@ class Djlint < Formula
   end
 
   resource "six" do
-    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
-    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
+    url "https://files.pythonhosted.org/packages/94/e7/b2c673351809dca68a0e064b6af791aa332cf192da575fd474ed7d6f16a2/six-1.17.0.tar.gz"
+    sha256 "ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81"
   end
 
   resource "tqdm" do
@@ -77,14 +78,16 @@ class Djlint < Formula
 
   def install
     virtualenv_install_with_resources
+
+    generate_completions_from_executable(bin/"djlint", shells: [:fish, :zsh], shell_parameter_format: :click)
   end
 
   test do
     assert_includes shell_output("#{bin}/djlint --version"), version.to_s
 
-    (testpath/"test.html").write <<~EOS
+    (testpath/"test.html").write <<~HTML
       {% load static %}<!DOCTYPE html>
-    EOS
+    HTML
 
     assert_includes shell_output("#{bin}/djlint --reformat #{testpath}/test.html", 1), "1 file was updated."
   end

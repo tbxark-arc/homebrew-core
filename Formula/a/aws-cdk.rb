@@ -1,12 +1,12 @@
 class AwsCdk < Formula
   desc "AWS Cloud Development Kit - framework for defining AWS infra as code"
   homepage "https://github.com/aws/aws-cdk"
-  url "https://registry.npmjs.org/aws-cdk/-/aws-cdk-2.171.1.tgz"
-  sha256 "5e23fe28f68a629a68618a8e96da3d6ad1e8c3a83bcbed58f2e61ae061e7ef37"
+  url "https://registry.npmjs.org/aws-cdk/-/aws-cdk-2.173.4.tgz"
+  sha256 "9995a06e64d33c1baa7e843cd02ea8dee04a8214b2bd408fdef8d2b62e38b1a7"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "74dcc7a68b48d0482437fb40b663332c318f553d0ea26310782f1fe9c1fad4ad"
+    sha256 cellar: :any_skip_relocation, all: "2377879e55a5588bd7170b95e4e5305fa6d3fcf34c974ff5d33b6e01e0181380"
   end
 
   depends_on "node"
@@ -14,9 +14,6 @@ class AwsCdk < Formula
   def install
     system "npm", "install", *std_npm_args
     bin.install_symlink Dir["#{libexec}/bin/*"]
-
-    # Replace universal binaries with native slices.
-    deuniversalize_machos
   end
 
   test do

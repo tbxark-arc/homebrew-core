@@ -3,18 +3,19 @@ class Fwupd < Formula
 
   desc "Firmware update daemon"
   homepage "https://github.com/fwupd/fwupd"
-  url "https://github.com/fwupd/fwupd/releases/download/2.0.2/fwupd-2.0.2.tar.xz"
-  sha256 "a36563ae377ea692d4925671b3cd73b1da3391c61f8f32a1ba22cb7233fa75ee"
+  url "https://github.com/fwupd/fwupd/releases/download/2.0.3/fwupd-2.0.3.tar.xz"
+  sha256 "73690175d0dd81849d729a0f247c69146ee9105c3c8c5d8428b64ad42d49b2f7"
   license "LGPL-2.1-or-later"
+  revision 1
   head "https://github.com/fwupd/fwupd.git", branch: "main"
 
   bottle do
-    sha256 arm64_sequoia: "a9caa52f8cc05e1c65e235fe741dd512c6b1025d237d0821a9990330fc60b8db"
-    sha256 arm64_sonoma:  "be8eb591a6376293234ddce29dd4a3c60ab39aa78535d8bafad0de08e2015d6f"
-    sha256 arm64_ventura: "638419dac4cb2e9afd6227a9d7e9e1bac4cd7e6e7518146e696f932117e8d7b6"
-    sha256 sonoma:        "86cde656c901e480f9172c3dbcf491eb17c0df44856c247db7b25e752340cff9"
-    sha256 ventura:       "de77108d6c7f0bbc9780ca662437d5a4f4a0a38e242340c31011a8d504362f20"
-    sha256 x86_64_linux:  "9645a62dc34cf4ac1f010cebb938310371be5cd9122ad4bdcce22d6d6ea66b03"
+    sha256 arm64_sequoia: "5930222336830529919343a33540a0f8e1603a2a5695ed5e4e322cdfff860351"
+    sha256 arm64_sonoma:  "5d818cf44344991cd367b181d89608844e2354541402785f5ebe721d344549cc"
+    sha256 arm64_ventura: "1af8b3db3328365386419652f1b6b312e2b7754225f64c301cec766fc0a346fc"
+    sha256 sonoma:        "72e98bddb44ebc8841a411cc2f48b6346926306c5157dd9fadfb0624ee11823d"
+    sha256 ventura:       "84321c057422c3b94134ec73ccbe5a31eb28efe6d5ab99e712ed0babac759672"
+    sha256 x86_64_linux:  "2f6c424f24827871f9a2c21c3f7671608de0238002d2b8ee6e8812ea775be4cd"
   end
 
   depends_on "gettext" => :build
@@ -23,7 +24,7 @@ class Fwupd < Formula
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkgconf" => [:build, :test]
-  depends_on "python@3.12" => :build
+  depends_on "python@3.13" => :build
   depends_on "vala" => :build
 
   depends_on "gcab"
@@ -52,8 +53,8 @@ class Fwupd < Formula
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/ed/55/39036716d19cab0747a5020fc7e907f362fbf48c984b14e62127f7e68e5d/jinja2-3.1.4.tar.gz"
-    sha256 "4a3aee7acbbe7303aede8e9648d13b8bf88a429282aa6122a993f0ac800cb369"
+    url "https://files.pythonhosted.org/packages/af/92/b3130cbbf5591acf9ade8708c365f3238046ac7cb8ccba6e81abccb0ccff/jinja2-3.1.5.tar.gz"
+    sha256 "8fefff8dc3034e27bb80d67c671eb8a9bc424c0ef4c0826edbff304cceff43bb"
   end
 
   resource "markupsafe" do
@@ -62,7 +63,7 @@ class Fwupd < Formula
   end
 
   def python3
-    "python3.12"
+    "python3.13"
   end
 
   def install

@@ -3,61 +3,57 @@ class Localai < Formula
 
   desc "OpenAI alternative"
   homepage "https://localai.io"
-  url "https://github.com/mudler/LocalAI/archive/refs/tags/v2.23.0.tar.gz"
-  sha256 "45dce2745e15debce36f2faeddb1b2688f6e6f9fce80ff204b2463d234d14686"
+  url "https://github.com/mudler/LocalAI/archive/refs/tags/v2.24.2.tar.gz"
+  sha256 "6dd03d21c4c903890bd2bdc6c18b4a1191b1a79dc296ccbf817d773cdcdb401a"
   license "MIT"
 
   bottle do
-    sha256 arm64_sequoia: "3a69527cb12060b36a6eb44c70c902a46112b41b6181d9df2c426125684c5c20"
-    sha256 arm64_sonoma:  "e8adcd0dd78e95ea39e2323534606ae9746839edeca4f22cf2d4f5eb0bb895ca"
-    sha256 arm64_ventura: "4c7775202e25e4e81141fb3fde595203ec0d22d011d3bef0501a12b4cc1fc7f1"
-    sha256 sonoma:        "e4d7ea2f2d9df99a9a6efbcd7f7a86035f0eda0a99c0894d5ff6c1bab4cdaaf6"
-    sha256 ventura:       "09dfcdd268edc7e7b69e465a331aff6e1579d6ba274d41355a091445fc20a560"
-    sha256 x86_64_linux:  "75a31b74573ed7e2c851dced6367031029e09168d48703b138ac5d4c0276e229"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6cbba8cd0121fc2130aac0a2a2bf139faee570bf56d82f5ef03122bdbb25f556"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d2a507a8f3dfcb311bdb40c07ca3313196e5bb566dee51b829d315961e677d0d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "8645fa2b753e7737c594c67b2a18ab510baf311cdd6c626b43db9417eae341ba"
+    sha256 cellar: :any_skip_relocation, sonoma:        "ad2e277808b710eda5d98e0c1e984c721f4e426b04c3d0e0a60a34bcb6897ea4"
+    sha256 cellar: :any_skip_relocation, ventura:       "5a6f4d946f11b75a4164eb21c106a697b3b3e16efb93c9ca7fb236aa5e01f9fd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ad9706f203403ba6384e7afac7e9b73fc185a66e7e9e8bacf51a56d3c5ae2153"
   end
 
   depends_on "abseil" => :build
   depends_on "cmake" => :build
   depends_on "go" => :build
-  depends_on "python-setuptools" => :build
-  depends_on xcode: :build
-
-  depends_on "grpc"
-  depends_on "protobuf"
-  depends_on "protoc-gen-go"
-  depends_on "protoc-gen-go-grpc"
-  depends_on "python@3.12"
-  depends_on "wget"
+  depends_on "grpc" => :build
+  depends_on "protobuf" => :build
+  depends_on "protoc-gen-go" => :build
+  depends_on "protoc-gen-go-grpc" => :build
+  depends_on "python@3.13" => :build
 
   resource "grpcio-tools" do
-    url "https://files.pythonhosted.org/packages/e7/f8/62e15867651b72f6f95313e21d81f5f1c210b69a4cc664aecf52ec4c8a53/grpcio_tools-1.67.0.tar.gz"
-    sha256 "181b3d4e61b83142c182ec366f3079b0023509743986e54c9465ca38cac255f8"
+    url "https://files.pythonhosted.org/packages/2a/2f/d2fc30b79d892050a3c40ef8d17d602f4c6eced066d584621c7bbf195b0e/grpcio_tools-1.68.1.tar.gz"
+    sha256 "2413a17ad16c9c821b36e4a67fc64c37b9e4636ab1c3a07778018801378739ba"
   end
 
   def python3
-    which("python3.12")
+    which("python3.13")
   end
 
   def install
-    ENV["PYTHON"] = python3
+    ENV["SDKROOT"] = MacOS.sdk_path if OS.mac?
 
-    venv = virtualenv_create(libexec, python3)
-    venv.pip_install(resources, build_isolation: false)
+    venv = virtualenv_create(buildpath/"venv", python3)
+    venv.pip_install resources
+    ENV.prepend_path "PATH", venv.root/"bin"
 
-    system "make", "build"
+    system "make", "build", "VERSION=#{version}"
     bin.install "local-ai"
   end
 
   test do
-    http_port = free_port
-    fork do
-      mkdir_p "#{testpath}/configuration"
-      ENV["LOCALAI_ADDRESS"] = "127.0.0.1:#{http_port}"
-      exec bin/"local-ai"
-    end
-    sleep 30
+    addr = "127.0.0.1:#{free_port}"
 
-    response = shell_output("curl -s -i 127.0.0.1:#{http_port}")
+    spawn bin/"local-ai", "run", "--address", addr
+    sleep 5
+    sleep 10 if OS.mac? && Hardware::CPU.intel?
+
+    response = shell_output("curl -s -i #{addr}")
     assert_match "HTTP/1.1 200 OK", response
   end
 end

@@ -1,18 +1,18 @@
 class YaraX < Formula
   desc "Tool to do pattern matching for malware research"
   homepage "https://virustotal.github.io/yara-x/"
-  url "https://github.com/VirusTotal/yara-x/archive/refs/tags/v0.11.0.tar.gz"
-  sha256 "321a04a99c1b5c724a3f8ddce66a70e6fa2154300cf3828ba0d9faf615376cac"
+  url "https://github.com/VirusTotal/yara-x/archive/refs/tags/v0.12.0.tar.gz"
+  sha256 "f73f7c3d2b38e7190d9b588bbc4eb6664123cd95a10c30e198f0653da1db8932"
   license "BSD-3-Clause"
   head "https://github.com/VirusTotal/yara-x.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f8fedf9a8d9bd943610a66351a26e8a93b43d35735cc83aaa36f14b22ec185ce"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6aa53770cfc8da3f7806beb67ed4fd9d2ed3b9fa602841db8813d637529195ab"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "a8324ac1e70db6c9dbdd91d943124831d02ae4151ce539df624772393fe80d59"
-    sha256 cellar: :any_skip_relocation, sonoma:        "eb89db9150c7491509c285315ab596d0ede4036893a525f3dfeee6dddce91031"
-    sha256 cellar: :any_skip_relocation, ventura:       "46ac0a2beea48ae9f8938982bf1f1029652224f75ded7525abe4adf54ebb2b96"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a2d4bdb7ded44671a3f3dc05083ba9418cf906b7e0da9d8d857c82394eba59de"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c11ca224f89e699dcfa63955e012992e7e00d3168fbfeda85778bb8b7308c456"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2654f91b33d943709fdb53f404734d1f860ab5a057895ad0ef702ad9f451f538"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "ea3de5b2f6c193a7b76d48a6217556be731e4f177967738c4285c7d1bf9fc60f"
+    sha256 cellar: :any_skip_relocation, sonoma:        "5193d8f4e3d614c7a3f973822b61590ef8a159d941f6cd7a73831a184ea88cc6"
+    sha256 cellar: :any_skip_relocation, ventura:       "ea70418bd8a8109b21f74ce340939a5a0aff36a0750b8812c0d18632e5e4742a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "dd8ec8bd9807a760e9d048969158301e2680168f1479865723ea1eb94db49215"
   end
 
   depends_on "rust" => :build

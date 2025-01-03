@@ -1,8 +1,8 @@
 class Geph4 < Formula
   desc "Modular Internet censorship circumvention system to deal with national filtering"
   homepage "https://geph.io/"
-  url "https://github.com/geph-official/geph4-client/archive/refs/tags/v4.99.19.tar.gz"
-  sha256 "6dfcb72c9042fa5d49b140234eccf57cfb7f63b3238e9733acd10f90923c977e"
+  url "https://github.com/geph-official/geph4-client/archive/refs/tags/v4.99.24.tar.gz"
+  sha256 "d7dd54a68c05d3a6ec25aa6b5dd04a971398312ab4b750f1a3457e1fae9b6dfb"
   license "GPL-3.0-only"
   head "https://github.com/geph-official/geph4-client.git", branch: "master"
 
@@ -12,12 +12,12 @@ class Geph4 < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1d622a7e20ce88dff101b47fa6a1afbfe559b9981d94262fea64fcca42036fac"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e826996c0becf4d576fb9951161e02570f42f008d9d15469ebd88a8b3546070e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "8e3cadc07293bd43bc487ab78ca644a907fdb0744568a95a9776424bfa708d5d"
-    sha256 cellar: :any_skip_relocation, sonoma:        "0f0ba81016f8571d410daad734993143d67a091fa2f51e43367693b74f673111"
-    sha256 cellar: :any_skip_relocation, ventura:       "c3ffad6d37ad20d736bb06067ab9666d46d3e12cffed9e501cdf0ef1c245ed40"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c397c06f3df3711fe107d9dae67fe191d0089f130817fcf09adcd5372e9383ef"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "713425e46459388de80ee0052e6296133e94120f07f53e0d1fef61a4e32099b3"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "93a8dbf0188d0cbd09595f17adc18b3ffb9ab0899cd6c4bf9451fee4ed2f93d3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "8e26e39e35f5e44d2a67569d89b43dec7554c9259125f6c5e13a20537d4954a1"
+    sha256 cellar: :any_skip_relocation, sonoma:        "79226754f53a60d8309e4f6ca9c9106dde139fb42dcd2dfedf2ff1d6f3b63d0a"
+    sha256 cellar: :any_skip_relocation, ventura:       "d5a6aecbb8257443f7136433cd1f83ef469ff14551c2fd90745fd593adf02bd3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e467b2539e258347a6cf92562f6f41d53c746fdce90577f96365a933098beb4e"
   end
 
   depends_on "rust" => :build

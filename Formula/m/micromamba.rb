@@ -1,9 +1,10 @@
 class Micromamba < Formula
   desc "Fast Cross-Platform Package Manager"
   homepage "https://github.com/mamba-org/mamba"
-  url "https://github.com/mamba-org/mamba/archive/refs/tags/micromamba-2.0.4.tar.gz"
-  sha256 "29281fe9b8fa99ecaa01d791b00889fb953fdafa154bbdf877a0858044334439"
+  url "https://github.com/mamba-org/mamba/archive/refs/tags/micromamba-2.0.5.tar.gz"
+  sha256 "f3c4d39921b2036aa77e1093cb21006bf8787f720a11a2a1ef9a80568d660bf3"
   license "BSD-3-Clause"
+  revision 2
   head "https://github.com/mamba-org/mamba.git", branch: "main"
 
   livecheck do
@@ -14,12 +15,12 @@ class Micromamba < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "b5e5a63b30d9467ea04ebe0796b645a1e1096b179b9781b4d29740dcd0df9de3"
-    sha256 cellar: :any,                 arm64_sonoma:  "a621633e464bfec93cee5f8a9ddd99fe8724d276b54bac749210522d8a8723c1"
-    sha256 cellar: :any,                 arm64_ventura: "f1d82146dcc0cc466c314d97154c5b6351a9dbfeb82cf06f1fe7049f50b4b1d4"
-    sha256 cellar: :any,                 sonoma:        "584d465c093c56765e48ae2c429477446bd1e5bbc0f2f5a01c0e4a0dcc1a9e7d"
-    sha256 cellar: :any,                 ventura:       "1d55ba702f46821eb99e69c689a9326e36d73f65e8cf364b94d9dbd525368b51"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a40b04c2c699c85bd1fd7dccf266ed50d3d978ad30145e02e0c66255ec858293"
+    sha256 cellar: :any,                 arm64_sequoia: "98e6925fbd830cc6d97519d156ad96b9cbf084c105e69e6011552c9350269919"
+    sha256 cellar: :any,                 arm64_sonoma:  "fa02f1e214165e3d129d748a381eece8d8e3dc54e170b69f1dfc70caa30924c5"
+    sha256 cellar: :any,                 arm64_ventura: "d40632ab7e49c6c0507b219805638062a3beab449ccea7206686f3f6c1f63a9c"
+    sha256 cellar: :any,                 sonoma:        "90c2f3094ea6f654fd6fb861e8f37e3be10cef230dd753c096259e16c8327baf"
+    sha256 cellar: :any,                 ventura:       "fbf91b7946c5f582c35738ad659f7cd94c9f51df8597ec4e9bd43dd055c7a06f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d7effa46da6d8528914ecd827b2271fc40fee8d67c9aa93c3cc9e110981e3781"
   end
 
   depends_on "cli11" => :build

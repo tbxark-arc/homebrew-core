@@ -1,19 +1,19 @@
 class Passenger < Formula
   desc "Server for Ruby, Python, and Node.js apps via Apache/NGINX"
   homepage "https://www.phusionpassenger.com/"
-  url "https://github.com/phusion/passenger/releases/download/release-6.0.23/passenger-6.0.23.tar.gz"
-  sha256 "897555224fb11340677780d929b5099da62303b1ae15f2e7c65cd3f6d3e7920c"
+  url "https://github.com/phusion/passenger/releases/download/release-6.0.24/passenger-6.0.24.tar.gz"
+  sha256 "3bc636ecf3e337c9fad13842fa539dabab546d458dfe4e2ae7c83419e7b8839c"
   license "MIT"
-  revision 3
+  revision 1
   head "https://github.com/phusion/passenger.git", branch: "stable-6.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "94dcfe98788b935e4472a3f489c385808ac46f4caf034e72a5a7c02dbcc924fd"
-    sha256 cellar: :any,                 arm64_sonoma:  "436fd397031476e139235f3e2e2c080663e2297a47c7b9f2b3c0f02dc37bc3c5"
-    sha256 cellar: :any,                 arm64_ventura: "5468d028c9110e986fba1139331616c51274168e61e443c710c7b7cf56daedaf"
-    sha256 cellar: :any,                 sonoma:        "df97e9b1167b5f7f3e05c55d7228866c084fdc94fa6c5a6b940814f9dd43400c"
-    sha256 cellar: :any,                 ventura:       "84d424e2caf8f8040ca09bc3c3fe39cb3d7a2e59701c206d18122802385f1c42"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cb49e9f1eafd6aaacc4154e0bf4c6c797d0baf224791939c2cb672fff821af4f"
+    sha256 cellar: :any,                 arm64_sequoia: "4c0ceae0f8545f444989001e830b37942ece639d10e4bf5006bd4072760ddaa6"
+    sha256 cellar: :any,                 arm64_sonoma:  "629d7d8414714171c58828e7b2a6d87634de1535b7135bbc47309a1179f8d024"
+    sha256 cellar: :any,                 arm64_ventura: "b88ca8ffc4cfb90a98387d9c842be7d8d9ee4ae6a7fa271e72dc876c8ca61803"
+    sha256 cellar: :any,                 sonoma:        "bfa03b50d2b1cebde00edc1c78d9ce4c624d7762b45655fde4474d3cf424dd09"
+    sha256 cellar: :any,                 ventura:       "3f4fdd17bccb32e4843205e1dafa11b62e17afb77c4571c9d5733835a48ad802"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5df766e6d116443a3b01f2d06681c15d6550dce4f759fe641cf0fc15bd0e7b24"
   end
 
   depends_on "httpd" => :build # to build the apache2 module
@@ -102,9 +102,6 @@ class Passenger < Formula
 
     man1.install Dir["man/*.1"]
     man8.install Dir["man/*.8"]
-
-    # See https://github.com/Homebrew/homebrew-core/pull/84379#issuecomment-910179525
-    deuniversalize_machos
   end
 
   def caveats

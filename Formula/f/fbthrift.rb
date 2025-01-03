@@ -1,18 +1,19 @@
 class Fbthrift < Formula
   desc "Facebook's branch of Apache Thrift, including a new C++ server"
   homepage "https://github.com/facebook/fbthrift"
-  url "https://github.com/facebook/fbthrift/archive/refs/tags/v2024.11.25.00.tar.gz"
-  sha256 "c8e9210609425b706404b77f366cb09fd20508294bd78f9661603618861f0dfe"
+  url "https://github.com/facebook/fbthrift/archive/refs/tags/v2024.12.02.00.tar.gz"
+  sha256 "c394eb7a607c54f6ec57979b06f4ebdcab6b3ae66ef71ad4a532b98ed39027fe"
   license "Apache-2.0"
+  revision 3
   head "https://github.com/facebook/fbthrift.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "a7d0dd8e5db75fc94d8bb5db941e78ffcac06869e08cf0baf375d508d544db80"
-    sha256 cellar: :any,                 arm64_sonoma:  "bf66341b2c27fba2d40ed533765f7de0b476755a056dc0a46f97d445f4e440c4"
-    sha256 cellar: :any,                 arm64_ventura: "e2900a7607f2fb53449df44006956847f2765f3935116987868bb4864350301e"
-    sha256 cellar: :any,                 sonoma:        "b5e2ebe28537729bffcc21cec9c0efc8cf022824117b221d35f9b920d5a31819"
-    sha256 cellar: :any,                 ventura:       "24d9503083143e09f4f37a63dbaff1142836cc7366991ee5d95dc1a108df4eb9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7ed6adbbb728308e75f76eebd7b67d745973c4eaad43a0b7bd054dd59b5ec48b"
+    sha256 cellar: :any,                 arm64_sequoia: "c814ae490e22b3fed576dea7dac045ca650619320423c36193ca78230ef4a6db"
+    sha256 cellar: :any,                 arm64_sonoma:  "09bcca76c3fbed62706b4fdf881b5232019724730e69d1a03dd9f3ecfef842b1"
+    sha256 cellar: :any,                 arm64_ventura: "adf2eac065f73edd1bcbdfdec5aa4134d197c0e2a9c8125a724405637e97074b"
+    sha256 cellar: :any,                 sonoma:        "72d3ed86d6bd7ea6c59908e718bd1343c718958e49f247313e3eedbb90c76ca6"
+    sha256 cellar: :any,                 ventura:       "b68e7edcefd6a5728d1c5fe4e4acace9e35c0805de5f0172581dfebc91db0ce8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e857beb6da7183df4c265b141c1b22fea36fbd412a6e19ca3543264a7d704d84"
   end
 
   depends_on "bison" => :build # Needs Bison 3.1+
@@ -100,7 +101,8 @@ class Fbthrift < Formula
       add_executable(test test.cpp)
       target_link_libraries(test FBThrift::transport)
     CMAKE
-    system "cmake", ".", *std_cmake_args
-    system "cmake", "--build", "."
+
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
   end
 end
